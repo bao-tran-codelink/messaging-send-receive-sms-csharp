@@ -51,12 +51,12 @@ namespace SendReceiveSMS
             try
             {
                 var response = await client.Messaging.APIController.CreateMessageAsync(AccountId, request);
-                Console.WriteLine($"Response status code: {response.StatusCode}");
+                Console.WriteLine($"Create message response status code '{response.StatusCode}'.");
             }
             catch (MessagingException e)
             {
                 var body = ((HttpStringResponse)e.HttpContext.Response).Body;
-                Console.WriteLine($"Failed to send Message: {e.Message}");
+                Console.WriteLine($"A messaging exception has occurred. {e.Message}");
                 Console.WriteLine(body);
                 System.Environment.Exit(-1);
             }
