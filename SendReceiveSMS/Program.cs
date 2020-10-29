@@ -1,12 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Bandwidth.Standard;
+using Bandwidth.Standard.Messaging.Models;
 
 namespace SendReceiveSMS
 {
     class Program
     {
-        static void Main(string[] args)
+        // Bandwidth provided messaging token.
+        private static readonly string Token = System.Environment.GetEnvironmentVariable("BANDWIDTH_MESSAGING_TOKEN");
+        
+        // Bandwidth provided messaging secret.
+        private static readonly string Secret = System.Environment.GetEnvironmentVariable("BANDWIDTH_MESSAGING_SECRET");
+
+        // Bandwidth provided application id.
+        private static readonly string ApplicationId = System.Environment.GetEnvironmentVariable("BANDWIDTH_MESSAGING_APPLICATION_ID");
+
+        // Bandwidth provided account id.
+        private static readonly string AccountId = System.Environment.GetEnvironmentVariable("BANDWIDTH_ACCOUNT_ID");
+
+        // The phone number to send the message from.
+        private static readonly string From = System.Environment.GetEnvironmentVariable("BANDWIDTH_FROM");
+        
+        // The phone number to send the message to.
+        private static readonly string To = System.Environment.GetEnvironmentVariable("BANDWIDTH_TO");
+
+        // The text message to send to the "to" phone number.
+        private static readonly string Message = "Hello from  Bandwidth";
+
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // Creates a Bandwidth client instance for creating messages.
+            var client = new BandwidthClient.Builder()
+                .Environment(Bandwidth.Standard.Environment.Production)
+                .MessagingBasicAuthCredentials(Token, Secret)
+                .Build();
+
+            // A message request containing the required information to create a message using the client.
+            var request = new MessageRequest() {
+                ApplicationId = ApplicationId,
+                To = new List<string> { To },
+                From = From,
+                Text = Message
+            };
+
+            // Creates and sends an SMS message with the provided message request.
+            var response = await client.Messaging.APIController.CreateMessageAsync(AccountId, request);
+
+            Console.WriteLine($"Response status code: {response.StatusCode}");
         }
     }
 }
