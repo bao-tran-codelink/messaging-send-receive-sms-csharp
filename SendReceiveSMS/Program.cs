@@ -29,7 +29,7 @@ namespace SendReceiveSMS
         private static readonly string To = System.Environment.GetEnvironmentVariable("BANDWIDTH_TO");
 
         // The text message to send to the "to" phone number.
-        private static readonly string Message = "Hello from  Bandwidth";
+        private static readonly string Message = "Hello from Bandwidth";
 
         static async Task Main(string[] args)
         {
