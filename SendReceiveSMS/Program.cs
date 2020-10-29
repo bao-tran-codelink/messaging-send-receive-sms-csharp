@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bandwidth.Standard;
+using Bandwidth.Standard.Http.Response;
+using Bandwidth.Standard.Messaging.Exceptions;
 using Bandwidth.Standard.Messaging.Models;
 
 namespace SendReceiveSMS
@@ -46,9 +48,23 @@ namespace SendReceiveSMS
             };
 
             // Creates and sends an SMS message with the provided message request.
-            var response = await client.Messaging.APIController.CreateMessageAsync(AccountId, request);
-
-            Console.WriteLine($"Response status code: {response.StatusCode}");
+            try
+            {
+                var response = await client.Messaging.APIController.CreateMessageAsync(AccountId, request);
+                Console.WriteLine($"Response status code: {response.StatusCode}");
+            }
+            catch (MessagingException e)
+            {
+                var body = ((HttpStringResponse)e.HttpContext.Response).Body;
+                Console.WriteLine($"Failed to send Message: {e.Message}");
+                Console.WriteLine(body);
+                System.Environment.Exit(-1);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An unknown exception has occurred. {e.Message}");
+                System.Environment.Exit(-1);
+            }
         }
     }
 }
