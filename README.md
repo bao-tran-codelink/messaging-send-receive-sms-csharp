@@ -6,7 +6,6 @@
 
 <!-- TOC -->
 
-- [Send and Receive SMS C#](#send-and-receive-sms-c#)
 - [Description](#description)
 - [Bandwidth](#bandwidth)
 - [Environmental Variables](#environmental-variables)
