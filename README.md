@@ -17,7 +17,7 @@
 # Description
 This repository contains two C# projects: SendReceiveSMS and Server. SendReceiveSMS is used to send text messages from your bandwidth number to your `USER_NUMBER`. 
 If your environment variables are configured properly, simply running this project should send a text to the number you provide.
-Server is used for handling inbound and outbound webhooks from Bandwidth. In order to use the correct endpoints, you must check the "Use multiple callback URLs" box on the application page in Dashboard. Then in Dashboard, set the INBOUND CALLBACK to `/callbacks/inbound/message` and the STATUS CALLBACK to `/callbacks/outbound/message`.
+Server is used for handling inbound and outbound webhooks from Bandwidth. In order to use the correct endpoints, you must check the "Use multiple callback URLs" box on the application page in Dashboard. Then in Dashboard, set the INBOUND CALLBACK to `/callbacks/inbound/messaging` and the STATUS CALLBACK to `/callbacks/outbound/messaging`.
 The same can be accomplished via the Dashboard API by setting `InboundCallbackUrl` and `OutboundCallbackUrl` respectively.
 
 Inbound callbacks are sent notifying you of a received message on a Bandwidth number, this app prints the phone numbers invloved, as well as the text received.
