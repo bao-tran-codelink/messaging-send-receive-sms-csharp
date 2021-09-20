@@ -22,7 +22,7 @@ namespace Server.Controllers
         }
 
         [HttpPost("inbound/messaging")]
-        public async Task<ActionResult> Messages()
+        public async Task<ActionResult> MessagesInbound()
         {
             _logger.LogInformation("Received message callback request.");
 
@@ -45,7 +45,7 @@ namespace Server.Controllers
         }
 
         [HttpPost("outbound/messaging")]
-        public async Task<ActionResult> Messages2()
+        public async Task<ActionResult> MessagesOutbound()
         {
             _logger.LogInformation("Received message callback request.");
 
