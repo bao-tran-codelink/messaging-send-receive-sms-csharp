@@ -47,8 +47,8 @@ USER_NUMBER                          # The user's phone number involved with thi
 For a detailed introduction to Bandwidth Callbacks see https://dev.bandwidth.com/guides/callbacks/callbacks.html
 
 Below are the callback paths:
-* `/callbacks/outbound/message`     For Outbound Status Callbacks
-* `/callbacks/inbound/message`      For Inbound Message Callbacks
+* `/callbacks/outbound/messaging`     For Outbound Status Callbacks
+* `/callbacks/inbound/messaging`      For Inbound Message Callbacks
 
 ## Ngrok
 
