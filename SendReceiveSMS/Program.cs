@@ -5,34 +5,48 @@ using Bandwidth.Standard;
 using Bandwidth.Standard.Http.Response;
 using Bandwidth.Standard.Messaging.Exceptions;
 using Bandwidth.Standard.Messaging.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace SendReceiveSMS
 {
     class Program
     {
         // Bandwidth provided messaging token.
-        private static readonly string Token = System.Environment.GetEnvironmentVariable("BW_USERNAME");
+        private static string Token = System.Environment.GetEnvironmentVariable("BW_USERNAME");
         
         // Bandwidth provided messaging secret.
-        private static readonly string Secret = System.Environment.GetEnvironmentVariable("BW_PASSWORD");
+        private static string Secret = System.Environment.GetEnvironmentVariable("BW_PASSWORD");
 
         // Bandwidth provided application id.
-        private static readonly string ApplicationId = System.Environment.GetEnvironmentVariable("BW_MESSAGING_APPLICATION_ID");
+        private static string ApplicationId = System.Environment.GetEnvironmentVariable("BW_MESSAGING_APPLICATION_ID");
 
         // Bandwidth provided account id.
-        private static readonly string AccountId = System.Environment.GetEnvironmentVariable("BW_ACCOUNT_ID");
+        private static string AccountId = System.Environment.GetEnvironmentVariable("BW_ACCOUNT_ID");
 
         // The phone number to send the message from.
-        private static readonly string From = System.Environment.GetEnvironmentVariable("BW_NUMBER");
+        private static string From = System.Environment.GetEnvironmentVariable("BW_NUMBER");
         
         // The phone number to send the message to.
-        private static readonly string To = System.Environment.GetEnvironmentVariable("USER_NUMBER");
+        private static string To = System.Environment.GetEnvironmentVariable("USER_NUMBER");
 
         // The text message to send to the "to" phone number.
-        private static readonly string Message = "Hello from Bandwidth";
+        private static string Message = "Hello from Bandwidth";
 
         static async Task Main(string[] args)
         {
+            Console.ReadLine();
+
+            Microsoft.Extensions.Configuration.IConfiguration configuration = new ConfigurationBuilder()
+                                            .AddJsonFile("appsettings.json")
+                                            .Build();
+
+            Token = configuration["BW_USERNAME"];
+            Secret = configuration["BW_PASSWORD"];
+            ApplicationId = configuration["BW_MESSAGING_APPLICATION_ID"];
+            AccountId = configuration["BW_ACCOUNT_ID"];
+            From = configuration["BW_NUMBER"];
+            To = configuration["USER_NUMBER"];
+
             // Creates a Bandwidth client instance for creating messages.
             var client = new BandwidthClient.Builder()
                 .Environment(Bandwidth.Standard.Environment.Production)
